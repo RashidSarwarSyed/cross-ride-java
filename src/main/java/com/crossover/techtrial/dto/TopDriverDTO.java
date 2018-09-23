@@ -3,6 +3,9 @@
  */
 package com.crossover.techtrial.dto;
 
+import com.crossover.techtrial.model.Person;
+import com.crossover.techtrial.model.Ride;
+
 /**
  * @author crossover
  *
@@ -33,8 +36,9 @@ public class TopDriverDTO {
   public TopDriverDTO() {
     
   }
-  
-  private String name;
+ 
+
+private String name;
   
   private String email;
   

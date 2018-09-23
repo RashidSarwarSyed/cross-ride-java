@@ -41,7 +41,19 @@ public class Person implements Serializable{
   @Column(name = "registration_number")
   String registrationNumber;
 
-  public Long getId() {
+  @Column(name = "isdriver")
+  Boolean isdriver;
+
+  
+  public Boolean getIsdriver() {
+	return isdriver;
+}
+
+public void setIsdriver(Boolean isdriver) {
+	this.isdriver = isdriver;
+}
+
+public Long getId() {
     return id;
   }
 

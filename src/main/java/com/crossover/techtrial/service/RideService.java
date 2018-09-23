@@ -3,6 +3,9 @@
  */
 package com.crossover.techtrial.service;
 
+import java.util.List;
+
+import com.crossover.techtrial.dto.TopDriverDTO;
 import com.crossover.techtrial.model.Ride;
 
 /**
@@ -16,5 +19,6 @@ public interface RideService {
   
   public Ride findById(Long rideId);
   
+  public List<TopDriverDTO> findTopRider(int count, String startDate, String endDate);
 
 }

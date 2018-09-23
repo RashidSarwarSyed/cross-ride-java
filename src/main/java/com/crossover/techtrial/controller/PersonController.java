@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.crossover.techtrial.model.Person;
 import com.crossover.techtrial.service.PersonService;
@@ -26,6 +28,7 @@ public class PersonController {
   PersonService personService;
   
   @PostMapping(path = "/api/person")
+  @RequestMapping(method = RequestMethod.POST) //Added request method post
   public ResponseEntity<Person> register(@RequestBody Person p) {
     return ResponseEntity.ok(personService.save(p));
   }
@@ -35,8 +38,9 @@ public class PersonController {
     return ResponseEntity.ok(personService.getAll());
   }
   
-  @GetMapping(path = "/api/person/{perso-id}")
-  public ResponseEntity<Person> getPersonById(@PathVariable(name="person-id", required=true)Long personId) {
+  //corrected person id
+  @GetMapping(path = "/api/person/{personId}")
+  public ResponseEntity<Person> getPersonById(@PathVariable(name="personId", required=true)Long personId) {
     Person person = personService.findById(personId);
     if (person != null) {
       return ResponseEntity.ok(person);

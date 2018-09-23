@@ -3,6 +3,8 @@
  */
 package com.crossover.techtrial.controller;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +60,47 @@ public class PersonControllerTest {
     Assert.assertEquals("test 1", response.getBody().getName());
     Assert.assertEquals(200,response.getStatusCode().value());
   }
+  
+  
+  @Test
+  public void testPersonDriverShouldBeRegistered() throws Exception {
+    HttpEntity<Object> person = getHttpEntity(
+        "{\"name\": \"test 1\", \"email\": \"test10000000000001@gmail.com\"," 
+            + " \"registrationNumber\": \"41DCT\",\"registrationDate\":\"2018-08-08T12:12:12\",\"isdriver\":1 }");
+    ResponseEntity<Person> response = template.postForEntity(
+        "/api/person", person, Person.class);
+    //Delete this user
+    personRepository.deleteById(response.getBody().getId());
+    Assert.assertEquals("test 1", response.getBody().getName());
+    Assert.assertEquals(200,response.getStatusCode().value());
+    Assert.assertEquals(1,response.getBody().getIsdriver());
+  }
+  
+  @Test
+  public void testPanelAllPersonShouldLoad() throws Exception {
+   
+	  //Load All User
+    ResponseEntity<List> response = template.getForEntity(
+        "/api/person", List.class);
+     
+    //assert weather call is successful
+    Assert.assertTrue(response.getBody().size() > 0);
+    Assert.assertEquals(200,response.getStatusCode().value());
+  }
+  
+  
+  @Test
+  public void testIdLoadIsOk() throws Exception {
+   
+	  //Assuming here Id:1 is the test person to be loaded
+    ResponseEntity<Person> response = template.getForEntity(
+        "/api/person/1", Person.class);
+    
+    //Checking weather the call was successful or not
+    Assert.assertNotNull(response.getBody());
+    
+  }
+
 
   private HttpEntity<Object> getHttpEntity(Object body) {
     HttpHeaders headers = new HttpHeaders();
